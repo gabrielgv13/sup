@@ -31,6 +31,7 @@ export default function App() {
   const [cart, setCart] = useState<SaleItem[]>([]);
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [lastSale, setLastSale] = useState<Sale | null>(null);
+  const [dailySalesTotal, setDailySalesTotal] = useState(0);
   const [terminalLogs, setTerminalLogs] = useState<string[]>(['SISTEMA INICIALIZADO...', 'CARREGANDO MODULO_VENDAS.por...', 'PRONTO.']);
   const [commandInput, setCommandInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -154,6 +155,7 @@ export default function App() {
       data: new Date().toLocaleString('pt-BR')
     };
     setLastSale(newSale);
+    setDailySalesTotal(prev => prev + total);
     setCart([]);
     setPaymentMethod('');
     setCurrentMenu('RECEIPT');
@@ -187,7 +189,7 @@ export default function App() {
             <span className="opacity-50">UTF-8</span>
           </div>
           
-          <div className="flex-1 p-6 font-mono text-[13px] overflow-y-auto terminal-scroll" ref={scrollRef}>
+          <div className="flex-1 p-6 font-mono text-sm overflow-y-auto terminal-scroll" ref={scrollRef}>
             <div className="space-y-0.5 mb-8">
               {terminalLogs.map((log, i) => (
                 <div key={i} className="flex gap-2">
@@ -201,17 +203,17 @@ export default function App() {
                 {currentMenu === 'MAIN' && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                     <div className="text-zinc-500 mb-2">// MENU PRINCIPAL</div>
-                    <div className="text-emerald-500">1. VER ESTOQUE</div>
-                    <div className="text-emerald-500">2. REGISTRAR VENDA</div>
-                    <div className="text-emerald-500">3. LIMPAR RELATÓRIO</div>
-                    <div className="text-zinc-500 text-[11px] mt-2">Digite <span className="text-emerald-500">1</span>, <span className="text-emerald-500">2</span> ou <span className="text-emerald-500">3</span> para selecionar uma opção.</div>
+                    <div className="text-emerald-500 text-[15px]">1. VER ESTOQUE</div>
+                    <div className="text-emerald-500 text-[15px]">2. REGISTRAR VENDA</div>
+                    <div className="text-emerald-500 text-[15px]">3. LIMPAR RELATÓRIO</div>
+                    <div className="text-zinc-500 text-sm mt-2">Digite <span className="text-emerald-500">1</span>, <span className="text-emerald-500">2</span> ou <span className="text-emerald-500">3</span> para selecionar uma opção.</div>
                   </motion.div>
                 )}
                 
                 {currentMenu === 'SELECT_PRODUCTS' && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
                     <div className="text-zinc-500 border-b border-[#333333] pb-1">// SELEÇÃO DE PRODUTOS</div>
-                    <div className="space-y-0.5 text-xs text-zinc-300">
+                    <div className="space-y-0.5 text-[15px] text-zinc-300">
                       {products.map(p => (
                         <div key={p.id} className="flex justify-between">
                           <span>{p.id}. {p.nome}</span>
@@ -219,7 +221,7 @@ export default function App() {
                         </div>
                       ))}
                     </div>
-                    <div className="text-zinc-500 text-[11px]">
+                    <div className="text-zinc-500 text-sm">
                       Digite o <span className="text-emerald-500">ID do produto</span> para adicionar ao carrinho, <span className="text-white font-bold">0</span> para ir ao checkout ou <span className="text-white font-bold">V</span> para voltar.
                     </div>
                   </motion.div>
@@ -228,7 +230,7 @@ export default function App() {
                 {currentMenu === 'INVENTORY' && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-2">
                     <div className="text-zinc-500">// ESTOQUE ATUAL</div>
-                    <div className="space-y-0.5 text-xs">
+                    <div className="space-y-0.5 text-[15px]">
                       {products.map(p => (
                         <div key={p.id} className="flex justify-between text-zinc-300">
                           <span>{p.nome}</span>
@@ -236,22 +238,22 @@ export default function App() {
                         </div>
                       ))}
                     </div>
-                    <div className="text-zinc-500 text-[11px]">Digite <span className="text-emerald-500">V</span> para voltar ao menu principal.</div>
+                    <div className="text-zinc-500 text-sm">Digite <span className="text-emerald-500">V</span> para voltar ao menu principal.</div>
                   </motion.div>
                 )}
 
                 {currentMenu === 'PAYMENT' && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
                     <div className="text-zinc-500">// PAGAMENTO</div>
-                    <div className="text-xs space-y-1">
+                    <div className="text-sm space-y-1">
                       <div className={paymentMethod === 'Dinheiro' ? 'text-white underline' : 'text-zinc-500'}>1. Dinheiro</div>
                       <div className={paymentMethod === 'Cartão Crédito/Débito' ? 'text-white underline' : 'text-zinc-500'}>2. Cartão</div>
                       <div className={paymentMethod === 'PIX' ? 'text-white underline' : 'text-zinc-500'}>3. PIX</div>
                     </div>
-                    <div className="text-zinc-500 text-[10px]">
+                    <div className="text-zinc-500 text-sm">
                       Digite <span className="text-emerald-500">1</span>, <span className="text-emerald-500">2</span> ou <span className="text-emerald-500">3</span> para escolher a forma de pagamento.
                     </div>
-                    <div className="text-zinc-500 text-[10px]">
+                    <div className="text-zinc-500 text-sm">
                       <span className="text-emerald-500">F</span> p/ finalizar | <span className="text-emerald-500">V</span> p/ voltar
                     </div>
                   </motion.div>
@@ -260,21 +262,21 @@ export default function App() {
                 {currentMenu === 'RECEIPT' && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-2">
                     <div className="text-emerald-500 font-bold">// VENDA REALIZADA COM SUCESSO.</div>
-                    <div className="text-[11px] text-zinc-500 font-mono">ID: {lastSale?.id} | Total: R${lastSale?.total.toFixed(2)}</div>
-                    <div className="text-zinc-500 text-[11px] mt-4">Digite <span className="text-emerald-500">1</span> para iniciar uma nova venda.</div>
+                    <div className="text-sm text-zinc-500 font-mono">ID: {lastSale?.id} | Total: R${lastSale?.total.toFixed(2)}</div>
+                    <div className="text-zinc-500 text-sm mt-4">Digite <span className="text-emerald-500">1</span> para iniciar uma nova venda.</div>
                   </motion.div>
                 )}
               </AnimatePresence>
 
               <div className="flex items-center gap-3 mt-8 bg-black/40 p-3 rounded-lg border border-emerald-500/30 focus-within:border-emerald-500 transition-all group shadow-[0_0_15px_rgba(16,185,129,0.05)]">
-                <span className="text-zinc-500 text-xs font-bold tracking-tighter">~/caixa</span>
+                <span className="text-zinc-500 text-sm font-bold tracking-tighter">~/caixa</span>
                 <span className="text-emerald-500 font-bold">$</span>
                 <input 
                   type="text" 
                   value={commandInput}
                   onChange={(e) => setCommandInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleCommand(commandInput)}
-                  className="bg-transparent border-none outline-none flex-1 text-white placeholder-zinc-700 font-bold"
+                  className="bg-transparent border-none outline-none flex-1 text-white placeholder-zinc-700 font-bold text-sm"
                   placeholder="DIGITE O COMANDO AQUI..."
                   autoFocus
                 />
@@ -324,7 +326,7 @@ export default function App() {
                      <div className="grid grid-cols-2 gap-4">
                         <div className="bg-zinc-50 p-5 rounded-2xl border border-zinc-100 transition-colors hover:bg-zinc-100">
                            <div className="text-[10px] font-black text-zinc-400 uppercase mb-1">Vendas Hoje</div>
-                           <div className="text-2xl font-black text-zinc-900 font-mono tracking-tight">R$ 1.240,50</div>
+                          <div className="text-2xl font-black text-zinc-900 font-mono tracking-tight">R$ {dailySalesTotal.toFixed(2).replace('.', ',')}</div>
                         </div>
                         <div className="bg-zinc-50 p-5 rounded-2xl border border-zinc-100 transition-colors hover:bg-zinc-100">
                            <div className="text-[10px] font-black text-zinc-400 uppercase mb-1">Alertas Estoque</div>
