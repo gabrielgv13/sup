@@ -271,7 +271,7 @@ export default function App() {
                   onChange={(e) => setCommandInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleCommand(commandInput)}
                   className="bg-transparent border-none outline-none flex-1 text-white placeholder-zinc-700 font-bold"
-                  placeholder="DIGITE O COMANDO AQUI..."
+                  placeholder="Digite 1, 2 ou 3 para selecionar uma opção."
                   autoFocus
                 />
                 <div className="w-2 h-4 bg-emerald-500 animate-[pulse_1s_infinite] group-focus-within:block hidden" />
