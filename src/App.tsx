@@ -204,6 +204,7 @@ export default function App() {
                     <div className="text-emerald-500">1. VER ESTOQUE</div>
                     <div className="text-emerald-500">2. REGISTRAR VENDA</div>
                     <div className="text-emerald-500">3. LIMPAR RELATÓRIO</div>
+                    <div className="text-zinc-500 text-[11px] mt-2">Digite <span className="text-emerald-500">1</span>, <span className="text-emerald-500">2</span> ou <span className="text-emerald-500">3</span> para selecionar uma opção.</div>
                   </motion.div>
                 )}
                 
@@ -219,7 +220,7 @@ export default function App() {
                       ))}
                     </div>
                     <div className="text-zinc-500 text-[11px]">
-                      ID p/ adicionar | <span className="text-white font-bold">0</span>. Checkout | <span className="text-white font-bold">V</span>. Voltar
+                      Digite o <span className="text-emerald-500">ID do produto</span> para adicionar ao carrinho, <span className="text-white font-bold">0</span> para ir ao checkout ou <span className="text-white font-bold">V</span> para voltar.
                     </div>
                   </motion.div>
                 )}
@@ -235,7 +236,7 @@ export default function App() {
                         </div>
                       ))}
                     </div>
-                    <div className="text-zinc-500 text-[11px]">Digite <span className="text-emerald-500">V</span> para voltar.</div>
+                    <div className="text-zinc-500 text-[11px]">Digite <span className="text-emerald-500">V</span> para voltar ao menu principal.</div>
                   </motion.div>
                 )}
 
@@ -248,6 +249,9 @@ export default function App() {
                       <div className={paymentMethod === 'PIX' ? 'text-white underline' : 'text-zinc-500'}>3. PIX</div>
                     </div>
                     <div className="text-zinc-500 text-[10px]">
+                      Digite <span className="text-emerald-500">1</span>, <span className="text-emerald-500">2</span> ou <span className="text-emerald-500">3</span> para escolher a forma de pagamento.
+                    </div>
+                    <div className="text-zinc-500 text-[10px]">
                       <span className="text-emerald-500">F</span> p/ finalizar | <span className="text-emerald-500">V</span> p/ voltar
                     </div>
                   </motion.div>
@@ -257,7 +261,7 @@ export default function App() {
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-2">
                     <div className="text-emerald-500 font-bold">// VENDA REALIZADA COM SUCESSO.</div>
                     <div className="text-[11px] text-zinc-500 font-mono">ID: {lastSale?.id} | Total: R${lastSale?.total.toFixed(2)}</div>
-                    <div className="text-zinc-500 text-[11px] mt-4">Digite <span className="text-emerald-500">1</span> para nova venda.</div>
+                    <div className="text-zinc-500 text-[11px] mt-4">Digite <span className="text-emerald-500">1</span> para iniciar uma nova venda.</div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -271,7 +275,7 @@ export default function App() {
                   onChange={(e) => setCommandInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleCommand(commandInput)}
                   className="bg-transparent border-none outline-none flex-1 text-white placeholder-zinc-700 font-bold"
-                  placeholder="Digite 1, 2 ou 3 para selecionar uma opção."
+                  placeholder="DIGITE O COMANDO AQUI..."
                   autoFocus
                 />
                 <div className="w-2 h-4 bg-emerald-500 animate-[pulse_1s_infinite] group-focus-within:block hidden" />
