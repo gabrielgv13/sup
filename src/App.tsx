@@ -538,7 +538,7 @@ export default function App() {
                             <div className="font-black text-emerald-600 font-mono">R$ {p.preco.toFixed(2)}</div>
                          </div>
                       </div>
-                    )}
+                    ))}
                   </div>
                 </motion.div>
               )}
