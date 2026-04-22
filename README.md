@@ -1,20 +1,55 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# SUP Caixa
 
-# Run and deploy your AI Studio app
+Sistema de caixa com duas interfaces lado a lado:
 
-This contains everything you need to run your app locally.
+- uma TUI inspirada em terminal
+- uma interface nativa com visual de painel operacional
 
-View your app in AI Studio: https://ai.studio/apps/2da4c194-bed9-4dc1-a207-6a26420b8357
+O projeto foi pensado para simular um PDV moderno, com fluxo de venda, estoque, pagamento e painel analítico.
 
-## Run Locally
+## Funcionalidades
 
-**Prerequisites:**  Node.js
+- menu principal no estilo terminal
+- seleção de produtos por comando ou clique
+- controle de estoque em tempo real
+- finalização de venda com forma de pagamento
+- total de vendas do dia no painel nativo
+- painel analítico com gráficos de pizza para:
+  - métodos de pagamento mais usados
+  - produtos mais comprados
 
+## Como executar
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Pré-requisitos
+
+- Node.js
+
+### Instalação
+
+```bash
+npm install
+```
+
+### Desenvolvimento
+
+```bash
+npm run dev
+```
+
+### Build de produção
+
+```bash
+npm run build
+```
+
+## GitHub Pages
+
+O projeto está configurado para publicar automaticamente no GitHub Pages a cada push na branch `main`.
+
+Link da aplicação publicada:
+
+https://gabrielgv13.github.io/sup/
+
+## Observação
+
+O arquivo `.env.example` existe apenas como referência de configuração. Se você não for usar nenhuma chave externa, o app continua rodando normalmente com a configuração padrão.
